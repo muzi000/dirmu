@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"log"
+	"os"
 	"sync"
 )
 
@@ -25,8 +27,18 @@ type Result struct {
 }
 
 //结果输出
-func (r Result) Print() {
-	fmt.Printf("%3d  -  %7d   -   %s\n", r.Status, r.Length, r.Url)
+func (r Result) Print() string {
+	return fmt.Sprintf("%3d  -  %7d   -   %s", r.Status, r.Length, r.Url)
+}
+
+//结果保存
+func (r Result) Save(filename string) {
+	file, err := os.OpenFile(filename, os.O_WRONLY|os.O_CREATE, 0775)
+	if err != nil {
+		log.Fatalf("result save err: %v", err)
+	}
+	defer file.Close()
+	file.WriteString("")
 }
 
 //定义工作池

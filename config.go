@@ -1,6 +1,9 @@
 package main
 
-import "net/http"
+import (
+	"net/http"
+	"os"
+)
 
 /*
 配置文件，设置
@@ -15,8 +18,9 @@ type Config struct {
 	Method     string //请求方法 GET POST
 	Delay      int    //最长等待时间
 	Redi       bool   //是否跟踪重定向
-	Out        string //输出保存文件
+	Out        string //输出保存文件名
 	Retry      int    //错误重复次数
 
 	Client *http.Client //根据上面确定的Http端
+	File   *os.File
 }
